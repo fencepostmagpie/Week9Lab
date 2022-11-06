@@ -4,12 +4,11 @@ import models.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import models.Role;
 
 public class UserDB {
 
     
-    public List<User> getAll(String email) throws Exception {
+    public List<User> getAll() throws Exception {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         
         try {
@@ -65,7 +64,6 @@ public class UserDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
-            user.getNoteList().remove(user);
                     trans.begin();
                     em.remove(em.merge(user));
                     em.merge(user);

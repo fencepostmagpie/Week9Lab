@@ -27,7 +27,7 @@ public class UserService {
         UserDB db = new UserDB();
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.getRole(roleId);
-        User user = new User(email, first_name, last_name, password, role);
+        User user = new User(email, true, first_name, last_name, password, role);
         db.update(user);
     }
 
@@ -41,7 +41,7 @@ public class UserService {
         UserDB db = new UserDB();
         RoleDB roleDB = new RoleDB();
         Role role = roleDB.getRole(roleId);
-        User user = new User(email, first_name, last_name, password, role);
+        User user = new User(email, true, first_name, last_name, password, role);
         db.insert(user);
     }
 

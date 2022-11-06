@@ -15,7 +15,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -53,8 +53,12 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "password")
     private String password;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
-    private List<Note> noteList;
+    @Column(name = "role")
+    private String roleName;
+    @Column(name = "roleId")
+    private int roleId;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<Role> roleList;
 
     public User() {
     }
@@ -63,12 +67,15 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public User(String email, boolean active, String firstName, String lastName, String password) {
+    public User(String email, boolean active, String firstName, String lastName, String password, Role role) {
         this.email = email;
         this.active = active;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        role = role;
+        this.roleId = role.getRoleId();
+        this.roleName = role.getTitle();
     }
 
     public String getEmail() {
@@ -111,14 +118,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
-    public List<Note> getNoteList() {
-        return noteList;
-    }
 
-    public void setNoteList(List<Note> noteList) {
-        this.noteList = noteList;
-    }
 
     @Override
     public int hashCode() {

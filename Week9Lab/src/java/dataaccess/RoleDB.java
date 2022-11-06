@@ -16,7 +16,7 @@ public class RoleDB {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
 
         try {
-            Role role = em.find(role.class, roleID);
+            Role role = em.find(Role.class, roleID);
             return role;
         } finally {
             em.close();
@@ -33,3 +33,4 @@ public class RoleDB {
             em.close();
         }
     }
+}
