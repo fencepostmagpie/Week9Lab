@@ -1,13 +1,13 @@
-DROP SCHEMA IF EXISTS `userdb`;
-CREATE SCHEMA IF NOT EXISTS `userdb` DEFAULT CHARACTER SET latin1;
-USE `userdb`;
+DROP SCHEMA IF EXISTS `usersdb`;
+CREATE SCHEMA IF NOT EXISTS `usersdb` DEFAULT CHARACTER SET latin1;
+USE `usersdb`;
 
-CREATE TABLE IF NOT EXISTS `userdb`.`role` (
+CREATE TABLE IF NOT EXISTS `userdbs`.`role` (
   `role_id` INT(11) NOT NULL,
   `role_name` VARCHAR(25) NOT NULL,
   PRIMARY KEY (`role_id`));
 
-CREATE TABLE IF NOT EXISTS `userdb`.`user` (
+CREATE TABLE IF NOT EXISTS `userdbs`.`user` (
   `email` VARCHAR(40) NOT NULL,
   `first_name` VARCHAR(20) NOT NULL,
   `last_name` VARCHAR(20) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `userdb`.`user` (
   PRIMARY KEY (`email`),
   CONSTRAINT `fk_user_role`
     FOREIGN KEY (`role`)
-    REFERENCES `userdb`.`role` (`role_id`));
+    REFERENCES `usersdb`.`role` (`role_id`));
 
 
 INSERT INTO `role` VALUES (1, 'system admin');

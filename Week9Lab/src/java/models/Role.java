@@ -28,10 +28,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Note.findAll", query = "SELECT n FROM Note n")
-    , @NamedQuery(name = "Note.findByNoteId", query = "SELECT n FROM Note n WHERE n.noteId = :noteId")
-    , @NamedQuery(name = "Note.findByTitle", query = "SELECT n FROM Note n WHERE n.title = :title")
-    , @NamedQuery(name = "Note.findByContents", query = "SELECT n FROM Note n WHERE n.contents = :contents")})
+    @NamedQuery(name = "Role.findAll", query = "SELECT n FROM Role n")
+    , @NamedQuery(name = "Role.findByRoleId", query = "SELECT n FROM Role n WHERE n.roleId = :roleId")
+    , @NamedQuery(name = "Role.findByTitle", query = "SELECT n FROM Role n WHERE n.title = :title")})
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,12 +43,11 @@ public class Role implements Serializable {
     @Column(name = "title")
     private String title;
     @Basic(optional = false)
-    @Column(name = "contents")
-    private String contents;
     @JoinColumn(name = "owner", referencedColumnName = "email")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Role role;
-//    int roleId;
+    String title1 = "system admin";
+    String title2 = "regular user";
 
     public Role() {
     }
@@ -58,10 +56,9 @@ public class Role implements Serializable {
         this.roleId = roleId;
     }
 
-    public Role(Integer roleId, String title, String contents) {
+    public Role(Integer roleId, String title) {
         this.roleId = roleId;
         this.title = title;
-        this.contents = contents;
     }
 
     public Integer getRoleId() {
@@ -73,20 +70,18 @@ public class Role implements Serializable {
     }
 
     public String getTitle() {
-        return title;
+        if (roleId == 1) {
+        return title1;
+        }
+        else {
+        return title2;
+        }
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
 
 
     @Override
